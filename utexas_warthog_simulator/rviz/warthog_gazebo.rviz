@@ -8,7 +8,6 @@ Panels:
         - /Status1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /PointCloud21
       Splitter Ratio: 0.5
     Tree Height: 812
   - Class: rviz/Selection
@@ -25,7 +24,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: Front Lidar
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -89,6 +88,19 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        front_lidar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_lidar_imu:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        front_lidar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         front_right_wheel_link:
           Alpha: 1
           Show Axes: false
@@ -123,24 +135,24 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        os1_imu:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        os1_lidar:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        os1_sensor:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         rear_left_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        rear_lidar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_lidar_imu:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        rear_lidar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         rear_right_wheel_link:
           Alpha: 1
           Show Axes: false
@@ -224,12 +236,104 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Front Lidar
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /ouster/points/front
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: ring
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Rear Lidar
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /ouster/points/rear
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: -999999
       Min Color: 0; 0; 0
-      Min Intensity: 999999
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /map
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
       Name: PointCloud2
       Position Transformer: XYZ
       Queue Size: 10
@@ -237,11 +341,11 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /os1_cloud_node/points
+      Topic: /merged_cloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -258,7 +362,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.042521476745605
+      Distance: 10.91392707824707
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -274,9 +378,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5853980183601379
+      Pitch: 0.6703983545303345
       Target Frame: <Fixed Frame>
-      Yaw: 5.700411796569824
+      Yaw: 1.1972123384475708
     Saved: ~
 Window Geometry:
   Displays:
