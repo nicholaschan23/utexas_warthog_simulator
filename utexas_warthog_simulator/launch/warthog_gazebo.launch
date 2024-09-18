@@ -1,0 +1,10 @@
+<launch>
+    <!-- Add lidars to Warthog URDF -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find utexas_warthog_simulator)/urdf/ouster.urdf.xacro"/>
+
+    <!-- Launch Gazebo -->
+    <include file="$(find warthog_gazebo)/launch/warthog_world.launch"/>
+
+    <!-- Launch RViz -->
+    <node pkg="rviz" type="rviz" name="rviz" respawn="false" output="screen" args="-d $(find utexas_warthog_simulator)/rviz/warthog_gazebo.rviz" />
+</launch>

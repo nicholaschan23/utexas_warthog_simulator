@@ -1,0 +1,21 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- <xacro:include filename="$(find ouster_description)/urdf/OS1-64.urdf.xacro" />
+    
+    <xacro:OS1-64 parent="base_link" name="front_lidar_link" topic_points="/ouster/points"
+        topic_imu="/ouster/imu" hz="10" lasers="128" samples="512">
+        <origin xyz="1 0 3" rpy="0 0 0" />
+    </xacro:OS1-64> -->
+
+    <xacro:include filename="$(find ouster_description)/urdf/OS1-64.urdf.xacro" />
+    <xacro:OS1-64 parent="base_link" name="os1_sensor" hz="10" samples="220">
+        <origin xyz="0 0 1.2" rpy="0 0 0" />
+    </xacro:OS1-64>
+
+    <!-- <OS1-64 parent="base_link" name="rear_lidar_link" topic_points="/ouster/points"
+        topic_imu="/ouster/imu" hz="10" lasers="128" samples="512" lidar_link="rear_lidar_link"
+        imu_link="rear_lidar_imu">
+        <origin xyz="-1 0 1" rpy="0 0 0" />
+    </OS1-64> -->
+
+</robot>
