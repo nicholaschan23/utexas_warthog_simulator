@@ -4,8 +4,8 @@
         command="$(find xacro)/xacro $(find utexas_warthog_simulator)/urdf/ouster.urdf.xacro" />
 
     <!-- Launch Gazebo -->
-    <arg name="gui" default="false" />
-    <arg name="headless" default="true" />
+    <arg name="gui" default="true" />
+    <arg name="headless" default="false" />
     <include file="$(find warthog_gazebo)/launch/warthog_world.launch">
         <arg name="gui" value="$(arg gui)" />
         <arg name="headless" value="$(arg headless)" />
@@ -15,35 +15,40 @@
     <node pkg="rviz" type="rviz" name="rviz"
         args="-d $(find utexas_warthog_simulator)/rviz/warthog_gazebo.rviz" />
 
-    <!-- SLAM  -->
-    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node"
-        name="pointcloud_to_laserscan_front">
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan_front">
         <remap from="cloud_in" to="ouster/points/front" />
         <remap from="scan" to="scan_1" />
-        <rosparam>
-            min_height: -0.5 
-            max_height: 0.25
-            <!-- range_max: 100.0 -->
-        </rosparam>
+        <param name="target_frame" value="bulkhead_link"/>
+        <param name="min_height" value="-0.25"/>
+        <param name="max_height" value="0.25"/>
+        <param name="range_min" value="0"/>
+        <param name="range_max" value="100"/>
     </node>
-
-    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node"
-        name="pointcloud_to_laserscan_rear">
+    
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan_rear">
         <remap from="cloud_in" to="ouster/points/rear" />
         <remap from="scan" to="scan_2" />
-        <rosparam>
-            min_height: -0.5
-            max_height: 0.25
-            <!-- range_max: 100.0 -->
-        </rosparam>
+        <param name="target_frame" value="bulkhead_link"/>
+        <param name="min_height" value="-0.25"/>
+        <param name="max_height" value="0.25"/>
+        <param name="range_min" value="0"/>
+        <param name="range_max" value="100"/>
     </node>
 
+    <!-- Merge laser scans -->
     <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger">
-        <param name="destination_frame" value="front_lidar_link" />
+        <param name="destination_frame" value="bulkhead_link" />
         <param name="cloud_destination_topic" value="/merged_cloud"/>
-        <param name="scan_destination_topic" value="/scan" />
+        <param name="scan_destination_topic" value="/merged_scan" />
         <param name="laserscan_topics" value="/scan_1 /scan_2" />
+        <param name="angle_min" value="-3.141"/>
+	    <param name="angle_max" value="3.141"/>
+        <param name="range_min" value="0.5"/>
+        <param name="range_max" value="100"/>
     </node>
 
-    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" />
+    <!-- SLAM  -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <remap from="scan" to="merged_scan" />    
+    </node>
 </launch>

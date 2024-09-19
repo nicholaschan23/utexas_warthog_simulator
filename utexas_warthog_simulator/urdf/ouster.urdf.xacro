@@ -1,17 +1,30 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    
     <xacro:include filename="$(find ouster_description)/urdf/OS1-64.urdf.xacro" />
     
-    <xacro:OS1-64 parent="bulkhead_front_mount_link" name="front_lidar" topic_points="/ouster/points/front"
-        topic_imu="/ouster/imu/front" hz="1" lasers="128" samples="128" lidar_link="front_lidar_link"
-        imu_link="front_lidar_imu">
-        <origin xyz="0.25 0 0.05" rpy="0 0 0" />
+    <xacro:property name="hz" value="1" />
+    <xacro:property name="lasers" value="128" />
+    <xacro:property name="samples" value="128" />
+    <xacro:property name="vfov_min" value="-0.367" />
+    <xacro:property name="vfov_max" value="0.367" />
+
+    <!-- Front Lidar -->
+    <xacro:OS1-64 parent="bulkhead_front_mount_link" name="front_lidar"
+        topic_points="/ouster/points/front" topic_imu="/ouster/imu/front"
+        hz="${hz}" lasers="${lasers}" samples="${samples}"
+        lidar_link="front_lidar_link" imu_link="front_lidar_imu"
+        vfov_min="${vfov_min}" vfov_max="${vfov_max}">
+        <origin xyz="0.15 0 ${0.2 + 0.0365}" rpy="0 0.262 0" />
     </xacro:OS1-64>
 
-    <xacro:OS1-64 parent="bulkhead_front_mount_link" name="rear_lidar" topic_points="/ouster/points/rear"
-        topic_imu="/ouster/imu/rear" hz="1" lasers="128" samples="128" lidar_link="rear_lidar_link"
-        imu_link="rear_lidar_imu">
-        <origin xyz="-0.95 0 0.05" rpy="0 0 0" />
+    <!-- Rear Lidar -->
+    <xacro:OS1-64 parent="bulkhead_front_mount_link" name="rear_lidar"
+        topic_points="/ouster/points/rear" topic_imu="/ouster/imu/rear"
+        hz="${hz}" lasers="${lasers}" samples="${samples}"
+        lidar_link="rear_lidar_link" imu_link="rear_lidar_imu"
+        vfov_min="${vfov_min}" vfov_max="${vfov_max}">
+        <origin xyz="${(-0.33987 * 2) - 0.15} 0 ${0.2 + 0.0365}" rpy="0 0.262 3.141" />
     </xacro:OS1-64>
 
 </robot>
